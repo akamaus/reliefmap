@@ -134,8 +134,8 @@ for(d = 0; d<100; d+=D){//contour
                 if (hs[i][j] >= hs[i+dx[k]][j+dy[k]])
                     ismin=false;
             }
-            if (ismin || ismax)
-            {   cont[i][j]='1';
+            if ((ismin || ismax))
+            {   if (cont[i][j] != '2') cont[i][j]='1';
                 cont[i-1][j]='1';
                 cont[i+1][j]='1';
                 cont[i][j-1]='1';
