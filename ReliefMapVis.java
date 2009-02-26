@@ -18,6 +18,8 @@ public class ReliefMapVis {
     char[][] cont;
     double[] ret;
     SecureRandom r;
+// exter
+    int[] extr_x, extr_y;
     // -----------------------------------------
     static int join(int r, int g, int b){
         return (r<<16)|(g<<8)|b;
@@ -57,17 +59,24 @@ System.out.println("W = "+W+"\nH = "+H);
         int i, j, k, l;
         double[] w;
         double n, d, dist;
-        x = new int[Nextr];
-        y = new int[Nextr];
+        extr_x = x = new int[Nextr];
+        extr_y = y = new int[Nextr];
         z = new int[Nextr];
         f = new int[Nextr];
         w = new double[Nextr];
+
+        cont = new char[H][W];
+        for (i=0; i<H; i++)
+        for (j=0; j<W; j++)
+            cont[i][j]='0';
+
         for (k=0; k<Nextr; k++)
         {   x[k] = r.nextInt(W);
             y[k] = r.nextInt(H);
             z[k] = r.nextInt(100);
             f[k] = r.nextInt(100)+100;
             w[k] = r.nextDouble()*0.5+0.3;
+            cont[y[k]][x[k]] = '2';
         }
         for (i=0; i<H; i++)
         for (j=0; j<W; j++)
@@ -94,10 +103,6 @@ System.out.println("W = "+W+"\nH = "+H);
             hs[i][j] = (hs[i][j]-hmin)/(hmax-hmin)*100;
 
         //convert it to the contour map
-        cont = new char[H][W];
-        for (i=0; i<H; i++)
-        for (j=0; j<W; j++)
-            cont[i][j]='0';
         double D;
         D = r.nextDouble()*8.0+2.0;
 System.out.println("D = "+D);
@@ -256,6 +261,8 @@ System.out.println("Number of measurements = "+nmes+" of "+maxmes+" possible");
                 if (mode==0){	//main mode - for original elevation map
                     if (contour[i].charAt(j)=='1')	//black contour lines
                         c = 0;
+                    else if (contour[i].charAt(j)=='2')
+                        c = 0xFFFFFF;
                     else
                         c = color((map[i][j]-hmin)/(hmax-hmin));
                 }else{		//secondary mode - for error coding
