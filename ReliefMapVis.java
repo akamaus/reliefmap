@@ -113,7 +113,7 @@ for(d = 0; d<100; d+=D){//contour
                 for(l = 0; l<8; l++){
                     int jj = j+dx[l];
                     int kk = k+dy[l];
-                    if(jj>=0 && jj<H && kk >=0 &&kk<W && hs[jj][kk] >d){
+                    if(jj>=0 && jj<H && kk >=0 &&kk<W && hs[jj][kk] >d && (cont[jj][kk] == '0')){
                         cont[jj][kk] = '1';
                     }
                 }
@@ -261,8 +261,6 @@ System.out.println("Number of measurements = "+nmes+" of "+maxmes+" possible");
                 if (mode==0){	//main mode - for original elevation map
                     if (contour[i].charAt(j)=='1')	//black contour lines
                         c = 0;
-                    else if (contour[i].charAt(j)=='2')
-                        c = 0xFFFFFF;
                     else
                         c = color((map[i][j]-hmin)/(hmax-hmin));
                 }else{		//secondary mode - for error coding
@@ -272,6 +270,9 @@ System.out.println("Number of measurements = "+nmes+" of "+maxmes+" possible");
                         c = (int)(255.99*(Math.min(-map[i][j]/diffsc,1)))*0x1;
                     //System.out.println(map[i][j]+" "+diffsc);
                 }
+                if (contour[i].charAt(j)=='2')
+                    c = 0xFFFFFF - c;
+
                 bi.setRGB(j,i,c);
             }
             return bi;
