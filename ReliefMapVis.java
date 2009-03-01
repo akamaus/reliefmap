@@ -136,10 +136,10 @@ for(d = 0; d<100; d+=D){//contour
             }
             if ((ismin || ismax))
             {   if (cont[i][j] != '2') cont[i][j]='1';
-                cont[i-1][j]='1';
-                cont[i+1][j]='1';
-                cont[i][j-1]='1';
-                cont[i][j+1]='1';
+                if (cont[i-1][j] != '2') cont[i-1][j]='1';
+                if (cont[i+1][j] != '2') cont[i+1][j]='1';
+                if (cont[i][j-1] != '2') cont[i][j-1]='1';
+                if (cont[i][j+1] != '2') cont[i][j+1]='1';
             }
         }
 
